@@ -64,6 +64,7 @@ void main(void)
   for(j=0;j<y;j++)
   {
    spec[i][j] = sqrt(pow(fft[i][j*2],2.0) + pow(fft[i][(j*2)+1],2.0));
+   //spec[i][j] = fft[i][j*2];
   }
  }
 
@@ -85,9 +86,9 @@ for(i=0;i<x;i++)
   for(j=0;j<y;j++)
   {
    //LPF
-   hu[i][j] = 1/(1+pow((sqrt(pow((i-(x/2)),2.0) + pow((j-(y/2)),2.0))/75),4.0));
+   hu[i][j] = 1/(1+pow((sqrt(pow((i-(x/2)),2.0) + pow((j-(y/2)),2.0))/35),6.0));
    //HPF
-   //hu[i][j] = 1/(1+pow(5/(sqrt(pow((i-(x/2)),2.0) + pow((j-(y/2)),2.0))),4.0));
+   //hu[i][j] = 1/(1+pow(10/(sqrt(pow((i-(x/2)),2.0) + pow((j-(y/2)),2.0))),4.0));
   }
  }
 
@@ -102,18 +103,21 @@ for(i=0;i<x;i++)
  }
 
 //reverse fourier
-fft2d(Gu,x,y,-1);
+  fft2d(Gu,x,y,-1);
+  //fft2d(fft,x,y,-1);
 
 //Sep spectrum
  for(i=0;i<x;i++)
  {
   for(j=0;j<y;j++)
   {
-   spec[i][j] = Gu[i][j*2];
+   spec[i][j] = sqrt(pow(Gu[i][j*2],2.0) + pow(Gu[i][(j*2)+1],2.0));
+   //spec[i][j] = fft[i][j*2];
   }
  }
- Center_sp(data_c, spec, x, y);
- norm_spec(data, data_c, x, y);
+ //Center_sp(data_c, spec, x, y);
+ //norm_spec(data, data_c, x, y);
+   norm_spec(data, spec, x, y);
 
 fpd = fopen("new2","wb");
 for(i=0;i<x;i++)
