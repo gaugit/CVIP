@@ -59,7 +59,7 @@ void fft2d(float *data, int row, int col, int sign)
 {
  int fri=0,i,j;
  float *frow,*fcol,*odata;
- float fdata[1024][1024];
+ float fdata[row][col*2];
  frow =(float *) calloc (2*col, sizeof (float));
  fcol =(float *) calloc (2*row, sizeof (float));
  odata = data;
@@ -72,7 +72,7 @@ void fft2d(float *data, int row, int col, int sign)
    odata++;
   }
  }
-  
+
  //1st time FFT
  for(i=0;i<row;i++)
  {
@@ -116,4 +116,5 @@ void fft2d(float *data, int row, int col, int sign)
    *data++ = fdata[i][j];
   }
  }
+
 }
