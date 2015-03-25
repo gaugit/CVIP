@@ -4,6 +4,8 @@
 
 #include "fft2d.h"
 
+#define CUTOFF 40.0
+#define ORDER  80.0
 
 void main(void)
 {
@@ -86,7 +88,7 @@ void main(void)
    for(j=0;j<y;j++)
    {
     //LPF
-    hu[i][j] = 1/(1+pow((sqrt(pow((i-(x/2)),2.0) + pow((j-(y/2)),2.0))/10),4.0));
+    hu[i][j] = 1/(1+pow((sqrt(pow((i-(x/2)),2.0) + pow((j-(y/2)),2.0))/CUTOFF),2*ORDER));
     //HPF
     //hu[i][j] = 1/(1+pow(10/(sqrt(pow((i-(x/2)),2.0) + pow((j-(y/2)),2.0))),4.0));
    }
